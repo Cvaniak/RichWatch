@@ -1,6 +1,8 @@
 from rich import box, print
 import boto3
+import time
 from rich.console import Console
+from rich.live import Live
 from rich.panel import Panel
 from rich.table import Table
 from rich.theme import Theme
@@ -62,54 +64,59 @@ def format_event(event):
     return date, Text(message_type.upper(), style=style_dict[message_type]), message_body
 
 
-class RainbowHighlighter(RegexHighlighter):
-    base_style = "aws."
-    highlights = [r"(?P<error>\[ERROR\].+?(?=[:(Z )]))", r"(?P<errortext>\[ERROR\].*)",
-                  r"(?P<start>START.+?(?=:))", r"(?P<info>\[INFO\].+?(?=Z))", r"(?P<report>REPORT.*)",
-                  r"(?P<end>END.+?(?=:))"]
+# class RainbowHighlighter(RegexHighlighter):
+#     base_style = "aws."
+#     highlights = [r"(?P<error>\[ERROR\].+?(?=[:(Z )]))", r"(?P<errortext>\[ERROR\].*)",
+#                   r"(?P<start>START.+?(?=:))", r"(?P<info>\[INFO\].+?(?=Z))", r"(?P<report>REPORT.*)",
+#                   r"(?P<end>END.+?(?=:))"]
 
 
-theme = Theme({"error": "bold red",
-               "start": "green",
-               "report": "dim yellow",
-               "debug": "bold blue",
-               "warning": "yellow",
-               "info": "yellow",
-               "end": "cyan"})
+# theme = Theme({"error": "bold red",
+#                "start": "green",
+#                "report": "dim yellow",
+#                "debug": "bold blue",
+#                "warning": "yellow",
+#                "info": "yellow",
+#                "end": "cyan"})
 
 console = Console()
 
-# For the latest
-stream_response = client.describe_log_streams(
-    logGroupName=f"/aws/lambda/{log_name}",  # Can be dynamic
-    orderBy='LastEventTime',                 # For the latest events
-    descending=True,
-    limit=2                                  # the last latest event, if you just want one
+
+def create_log_table():
+    # For the latest
+    stream_response = client.describe_log_streams(
+        logGroupName=f"/aws/lambda/{log_name}",  # Can be dynamic
+        orderBy='LastEventTime',                 # For the latest events
+        descending=True,
+        limit=2                                  # the last latest event, if you just want one
 
 
-)
-
-console.print(stream_response["logStreams"])
-list_log_streams = stream_response["logStreams"]
-
-
-table = Table(title=log_name, box=box.MINIMAL,
-              show_lines=True, highlight=RainbowHighlighter())
-table.add_column("Time")
-table.add_column("Type")
-table.add_column("Massage")
-for log_detail in list_log_streams:
-    response = client.get_log_events(
-        logGroupName=f"/aws/lambda/{log_name}",
-        logStreamName=log_detail["logStreamName"],
     )
 
-    # console.print(response["events"])
-    for event in response["events"]:
-        # console.print(event["message"].replace("\t", "\n"), end="\n\n")
+    # console.print(stream_response["logStreams"])
+    list_log_streams = stream_response["logStreams"]
 
-        table.add_row(*format_event(event))
+    table = Table(title=log_name, box=box.MINIMAL,
+                  show_lines=True, highlight=None)
+    table.add_column("Time")
+    table.add_column("Type")
+    table.add_column("Massage")
+    for log_detail in list_log_streams:
+        response = client.get_log_events(
+            logGroupName=f"/aws/lambda/{log_name}",
+            logStreamName=log_detail["logStreamName"],
+        )
+
+        # console.print(response["events"])
+        for event in response["events"]:
+            # console.print(event["message"].replace("\t", "\n"), end="\n\n")
+
+            table.add_row(*format_event(event))
+
+    return table
+
+# console.print(Panel("Test"))
 
 
-console.print(Panel("Test"))
-console.print(table)
+if __name__ == '__main__':
+    console.print(create_log_table())
