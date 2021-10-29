@@ -11,6 +11,46 @@ from datetime import datetime
 client = boto3.client('logs')
 log_name = "data-upload-lambda-receive-sqs-infra"
 
+z = {"[INFO]": "info",
+     "[WARNING]": "warning",
+     "[ERROR]": "error",
+     "START": "start",
+     "REPORT": "report",
+     "END": "end",
+     "DEBUG": "debug"}
+
+OTHER_TYPE = "debug"
+
+
+def format_date(date):
+    d = datetime.fromtimestamp(date/1000.0)
+    time = d.strftime("%m/%d/%Y\n%H:%M:%S.%f")
+    return time
+
+
+def format_message(message):
+    message_type, message_body = message.split(" ", 1)
+
+    if message_type in z:
+        message_type = z[message_type]
+    else:
+        message_type = OTHER_TYPE
+        message_body = message
+
+    tmp = message_body.replace("\t", "\n")
+    while tmp.endswith("\n"):
+        tmp = tmp[:-1]
+    message_body = tmp
+
+    return message_type, message_body
+
+
+def format_event(event):
+    date = format_date(event["timestamp"])
+    message_type, message_body = format_message(event["message"])
+
+    return date, Pretty(message_type), message_body
+
 
 class RainbowHighlighter(RegexHighlighter):
     base_style = "aws."
@@ -26,7 +66,7 @@ theme = Theme({"aws.error": "bold red",
                "aws.info": "yellow",
                "aws.end": "cyan"})
 
-console = Console(highlighter=RainbowHighlighter(), theme=theme)
+console = Console()
 
 # For the latest
 stream_response = client.describe_log_streams(
@@ -34,6 +74,8 @@ stream_response = client.describe_log_streams(
     orderBy='LastEventTime',                 # For the latest events
     descending=True,
     limit=2                                  # the last latest event, if you just want one
+
+
 )
 
 console.print(stream_response["logStreams"])
@@ -54,14 +96,8 @@ for log_detail in list_log_streams:
     # console.print(response["events"])
     for event in response["events"]:
         # console.print(event["message"].replace("\t", "\n"), end="\n\n")
-        d = datetime.fromtimestamp(event["timestamp"]/1000.0)
-        time = d.strftime("%m/%d/%Y\n%H:%M:%S.%f")
-        a = event["message"]
-        # a = a.replace("\t", "\n")
-        # while a.endswith("\n"):
-        #     a = a[:-1]
-        text = a.split(" ", 1)
-        table.add_row(time, text[0], text[1])
+
+        table.add_row(*format_event(event))
 
 
 console.print(table)
