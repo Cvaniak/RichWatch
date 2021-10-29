@@ -1,11 +1,13 @@
 from rich import box, print
 import boto3
 from rich.console import Console
+from rich.panel import Panel
 from rich.table import Table
 from rich.theme import Theme
 from rich.json import JSON
 from rich.highlighter import RegexHighlighter
 from rich.pretty import Pretty
+from rich.text import Text
 from datetime import datetime
 
 client = boto3.client('logs')
@@ -18,6 +20,14 @@ z = {"[INFO]": "info",
      "REPORT": "report",
      "END": "end",
      "DEBUG": "debug"}
+
+style_dict = {"error": "bold red",
+              "start": "green",
+              "report": "dim yellow",
+              "debug": "bold blue",
+              "warning": "yellow",
+              "info": "yellow",
+              "end": "cyan"}
 
 OTHER_TYPE = "debug"
 
@@ -49,7 +59,7 @@ def format_event(event):
     date = format_date(event["timestamp"])
     message_type, message_body = format_message(event["message"])
 
-    return date, Pretty(message_type), message_body
+    return date, Text(message_type.upper(), style=style_dict[message_type]), message_body
 
 
 class RainbowHighlighter(RegexHighlighter):
@@ -59,12 +69,13 @@ class RainbowHighlighter(RegexHighlighter):
                   r"(?P<end>END.+?(?=:))"]
 
 
-theme = Theme({"aws.error": "bold red",
-               "aws.errortext": "red",
-               "aws.start": "green",
-               "aws.report": "dim yellow",
-               "aws.info": "yellow",
-               "aws.end": "cyan"})
+theme = Theme({"error": "bold red",
+               "start": "green",
+               "report": "dim yellow",
+               "debug": "bold blue",
+               "warning": "yellow",
+               "info": "yellow",
+               "end": "cyan"})
 
 console = Console()
 
@@ -100,4 +111,5 @@ for log_detail in list_log_streams:
         table.add_row(*format_event(event))
 
 
+console.print(Panel("Test"))
 console.print(table)
