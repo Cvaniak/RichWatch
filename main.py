@@ -1,57 +1,56 @@
-from rich import box, print
-import boto3
-import time
-from rich.console import Console
-from rich.live import Live
-from rich.panel import Panel
-from rich.table import Table
-from rich.theme import Theme
-from rich.json import JSON
-from rich.highlighter import RegexHighlighter
-from rich.pretty import Pretty
-from rich.text import Text
 from datetime import datetime
 
-client = boto3.client('logs')
-log_name = "data-upload-lambda-receive-sqs-infra"
+import boto3
+from rich import box
+from rich.console import Console
+from rich.table import Table
+from rich.text import Text
 
-z = {"[INFO]": "info",
-     "[WARNING]": "warning",
-     "[ERROR]": "error",
-     "START": "start",
-     "REPORT": "report",
-     "END": "end",
-     "DEBUG": "debug"}
+type_dict = {
+    "[INFO]": "info",
+    "[WARNING]": "warning",
+    "[ERROR]": "error",
+    "START": "start",
+    "REPORT": "report",
+    "END": "end",
+    "DEBUG": "debug",
+}
 
-style_dict = {"error": "bold red",
-              "start": "green",
-              "report": "dim yellow",
-              "debug": "bold blue",
-              "warning": "yellow",
-              "info": "yellow",
-              "end": "cyan"}
+style_dict = {
+    "error": "bold red",
+    "start": "green",
+    "report": "dim yellow",
+    "debug": "bold blue",
+    "warning": "yellow",
+    "info": "yellow",
+    "end": "cyan",
+}
 
 OTHER_TYPE = "debug"
 
 
 def format_date(date):
-    d = datetime.fromtimestamp(date/1000.0)
-    time = d.strftime("%m/%d/%Y\n%H:%M:%S.%f")
+    d = datetime.fromtimestamp(date / 1000.0)
+    time = d.strftime("%m/%d/%Y\n%H:%M:%S.%f")[:-3]
     return time
 
 
 def format_message(message):
-    message_type, message_body = message.split(" ", 1)
+    if not message:
+        return OTHER_TYPE, message
 
-    if message_type in z:
-        message_type = z[message_type]
+    message_type = [x for x in type_dict.keys() if message.startswith(x)]
+
+    if message_type:
+        type_length = len(message_type[0])
+        message_body = message[type_length:]
+        message_type = type_dict[message_type[0]]
     else:
         message_type = OTHER_TYPE
         message_body = message
 
     tmp = message_body.replace("\t", "\n")
-    while tmp.endswith("\n"):
-        tmp = tmp[:-1]
+    tmp = tmp.strip()
     message_body = tmp
 
     return message_type, message_body
@@ -61,39 +60,21 @@ def format_event(event):
     date = format_date(event["timestamp"])
     message_type, message_body = format_message(event["message"])
 
-    return date, Text(message_type.upper(), style=style_dict[message_type]), message_body
-
-
-# class RainbowHighlighter(RegexHighlighter):
-#     base_style = "aws."
-#     highlights = [r"(?P<error>\[ERROR\].+?(?=[:(Z )]))", r"(?P<errortext>\[ERROR\].*)",
-#                   r"(?P<start>START.+?(?=:))", r"(?P<info>\[INFO\].+?(?=Z))", r"(?P<report>REPORT.*)",
-#                   r"(?P<end>END.+?(?=:))"]
-
-
-# theme = Theme({"error": "bold red",
-#                "start": "green",
-#                "report": "dim yellow",
-#                "debug": "bold blue",
-#                "warning": "yellow",
-#                "info": "yellow",
-#                "end": "cyan"})
-
-console = Console()
-
-
-def create_log_table():
-    # For the latest
-    stream_response = client.describe_log_streams(
-        logGroupName=f"/aws/lambda/{log_name}",  # Can be dynamic
-        orderBy='LastEventTime',                 # For the latest events
-        descending=True,
-        limit=2                                  # the last latest event, if you just want one
-
-
+    return (
+        date,
+        Text(message_type.upper(), style=style_dict[message_type]),
+        message_body,
     )
 
-    # console.print(stream_response["logStreams"])
+
+def create_log_table(client, log_name):
+    stream_response = client.describe_log_streams(
+        logGroupName=log_name,
+        orderBy="LastEventTime",
+        descending=True,
+        limit=2,
+    )
+
     list_log_streams = stream_response["logStreams"]
 
     table = Table(title=log_name, box=box.MINIMAL,
@@ -103,20 +84,20 @@ def create_log_table():
     table.add_column("Massage")
     for log_detail in list_log_streams:
         response = client.get_log_events(
-            logGroupName=f"/aws/lambda/{log_name}",
+            logGroupName=log_name,
             logStreamName=log_detail["logStreamName"],
         )
 
-        # console.print(response["events"])
         for event in response["events"]:
-            # console.print(event["message"].replace("\t", "\n"), end="\n\n")
-
             table.add_row(*format_event(event))
 
     return table
 
-# console.print(Panel("Test"))
 
+if __name__ == "__main__":
 
-if __name__ == '__main__':
-    console.print(create_log_table())
+    client = boto3.client("logs")
+    log_name = "/aws/lambda/data-upload-lambda-receive-sqs-infra"
+
+    console = Console()
+    console.print(create_log_table(client, log_name))
