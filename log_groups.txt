@@ -1,0 +1,9 @@
+/aws/lambda/data-upload-lambda-receive-sqs-infra
+/aws/lambda/audit-report-api-infra
+lambda/b
+lambda/c
+lambda/d
+lambda/e
+lambda/f
+lambda/f
+lambda/h
