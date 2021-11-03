@@ -1,6 +1,3 @@
-/aws/lambda/data-upload-lambda-receive-sqs-infra
-/aws/lambda/audit-report-api-infra
-/aws/lambda/arc-auth-lambda-sync-infra
 lambda/b
 lambda/c
 lambda/d
