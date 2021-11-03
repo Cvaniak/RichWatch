@@ -2,6 +2,7 @@ from rich import box
 from other_tools.format_tools import format_event
 from rich.table import Table
 from boto3 import client
+import sys
 
 
 def create_log_table(client: client, log_name: str):
