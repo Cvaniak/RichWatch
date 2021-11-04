@@ -16,8 +16,13 @@ def create_log_table(client: client, log_name: str):
     list_log_streams = stream_response["logStreams"]
 
     title = log_name.upper().split("/")[-1]
-    table = Table(title=title, box=box.MINIMAL,
-                  show_lines=True, highlight=None, title_style="bold")
+    table = Table(
+        title=title,
+        box=box.MINIMAL,
+        show_lines=True,
+        highlight=None,
+        title_style="bold",
+    )
     table.add_column("Time")
     table.add_column("Type")
     table.add_column("Massage")
