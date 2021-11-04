@@ -9,13 +9,19 @@ Because it works in terminal, you can have updates from your **Lambdas** and oth
 ## **Content**
 - [What is the difference?](#what-is-the-difference)
 - [Setup and Usage](#setup-and-usage)
+    - [**AWS credentials for Boto3**](#aws-credentials-for-boto3)
+    - [**Install requirements**](#install-requirements)
+    - [**Setup Log Group file**](#setup-log-group-file)
+    - [**Run App**](#run-app)
 - [TODO](#todo)
 
 # What is the difference?
 So this is example Log output from **AWS Cloud Watch**:  
 ![Test](./documentation/AWSLogs.png)    
 And here is same output but using **RichWatch**: 
-![Test](./documentation/RichWatchTui.png)  
+![Test](./documentation/RichWatchTui.png)
+  > ⚠️ There is no theme setup yet so **Rich** format is based of your terminal Theme. Setup for this screenshot is `zsh` with `agnoster` in `Tilda` console.  
+
 And both are for same **Lambda** code:
 ```python
 import json
@@ -35,14 +41,33 @@ def lambda_handler(event, context):
     }
 ```
 # Setup and Usage
-* boto3 
-* * AWS ~/.aws/config
-[default]
-region=<change here>
-aws_access_key_id=<change here>
-aws_secret_access_key=<change here>
-* pip install 
-* 
+### **AWS credentials for Boto3**
+To start you need to setup credentials for **AWS**. You can do this using **AWS Command Line**, in `~/.aws/credentials` file or via `export` command of environment variables. You can read more about this [here](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/configuration.html).
+### **Install requirements**
+You need `Python` and `pip` in version `3.6` or higher.  
+Then you need to install requirements:
+```bash
+pip3 install -r requirements.txt
+```
+### **Setup Log Group file**
+Then you need to create `log_group.txt` file like this:
+```txt
+/aws/lambda/lambda-name-1 region-name-1
+/aws/lambda/lambda-name-2 
+...
+/aws/lambda/lambda-name-n region-name-n
+```
+Where first word is name o log group, and second optional region(if empty then the default will be taken, if also empty then error will occur). It will display only last part after `/`.
+### **Run App**
+Then you can run app:
+```bash
+python3 rich_watch.py
+```
+or get logs once and printout to stdout with:
+```bash
+python3 main.py <log_group>
+```
+
 
 # TODO
 * Set custom and default style
