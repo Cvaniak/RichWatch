@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<svg viewBox="38.521 77.042 461.479 346.689" xmlns="http://www.w3.org/2000/svg">
-  <rect x="38.521" y="77.042" width="461.479" height="346.689" style=""/>
-  <path style="stroke: rgb(73, 230, 91); stroke-width: 10px;" d="M 134.34 328.577 C 57.851 328.577 57.851 213.014 134.893 213.014 C 134.893 213.014 134.893 213.567 134.893 213.014 C 134.893 135.972 288.977 58.93 366.019 174.493 C 481.582 174.493 481.582 328.577 404.54 328.577 C 404.54 328.577 326.503 328.577 134.34 328.577 Z"/>
-  <path style="fill: rgba(216, 216, 216, 0); stroke: rgb(73, 230, 91); stroke-linejoin: round; stroke-dashoffset: -36px; stroke-width: 10px;" d="M 165.592 176.151 L 242.634 214.672 L 165.592 253.193"/>
-  <path style="fill: rgb(216, 216, 216); stroke: rgb(73, 230, 91); stroke-width: 10px;" d="M 242.634 290.056 L 319.676 290.056"/>
-  <text style="fill: rgb(73, 230, 91); font-family: Arial, sans-serif; font-size: 58.3px; font-weight: 700; white-space: pre;" x="115.574" y="399.158">RichCloud</text>
-</svg>

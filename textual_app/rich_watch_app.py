@@ -31,7 +31,7 @@ async def get_lambdas(filename: str, tree: TreeControl) -> None:
     await tree.root.expand()
 
 
-class RichCloudApp(App):
+class RichWatchApp(App):
     main_body = Reactive(Panel(Align.center("Logs Content"), style="bold"))
     a = True
 
