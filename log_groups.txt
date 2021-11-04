@@ -1,0 +1,7 @@
+lambda/b
+lambda/c
+lambda/d
+lambda/e
+lambda/f
+lambda/f
+lambda/h
