@@ -1,22 +1,16 @@
 import threading
 from rich.align import Align
-from rich.text import Text
 from textual import events
 from textual.app import App
 from textual.reactive import Reactive
 from rich.panel import Panel
-from rich.pretty import Pretty
-from rich.status import Status
 from textual.widgets import (
     ScrollView,
     Footer,
     Header,
-    Placeholder,
     TreeClick,
     TreeControl,
 )
-from textual.widget import Widget
-from datetime import datetime, timedelta
 from textual_app.get_log_task import GetLogTask
 from textual_app.status_bar import StatusBar
 

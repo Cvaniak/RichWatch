@@ -1,10 +1,5 @@
-from datetime import datetime
-
 import boto3
-from rich import box
 from rich.console import Console
-from rich.table import Table
-from rich.text import Text
 from other_tools.other import create_log_table
 
 
