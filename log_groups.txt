@@ -1,3 +1,4 @@
+/aws/lambda/log-test eu-west-1
 lambda/b
 lambda/c
 lambda/d

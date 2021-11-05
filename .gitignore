@@ -1,1 +1,6 @@
 __pycache__
+.vscode
+venv
+err.txt
+textual.log
+log_groups.txt
