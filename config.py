@@ -2,6 +2,7 @@ type_dict = {
     "[INFO]": "info",
     "[WARNING]": "warning",
     "[ERROR]": "error",
+    "[DEBUG]": "debug",
     "START": "start",
     "REPORT": "report",
     "END": "end",
