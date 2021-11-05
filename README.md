@@ -2,21 +2,22 @@
 <a href="https://github.com/Cvaniak/RichWatch"><img alt="" src="./documentation/RichWatchLogo.png" width="70%"></a>
 </p>  
 
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 **RichWatch** is **TUI** (Textual User Interface) for **AWS Cloud Watch**.  
 It formats and pretty prints **Cloud Watch**'s logs so they are much more readable.  
 Because it works in terminal, you can have updates from your **Lambdas** and other **AWS** services next to your hand, automatically refreshed and represented in beautiful way by excelent **Python** library [**Rich**]("www.costam.com") and [**Textual**]("www.costam.com"),
 
 ## **Content**
-- [What is the difference?](#what-is-the-difference)
-- [Setup and Usage](#setup-and-usage)
+- [What is the difference❓](#what-is-the-difference)
+- [Setup and Usage ⚙️](#setup-and-usage-️)
     - [**AWS credentials for Boto3**](#aws-credentials-for-boto3)
     - [**Install requirements**](#install-requirements)
     - [**Setup Log Group file**](#setup-log-group-file)
     - [**Run App**](#run-app)
-- [TODO](#todo)
+- [TODO 📝](#todo-)
 
-# What is the difference?
+# What is the difference❓
 So this is example Log output from **AWS Cloud Watch**:  
 ![Test](./documentation/AWSLogs.png)    
 And here is same output but using **RichWatch**: 
@@ -41,7 +42,7 @@ def lambda_handler(event, context):
         'body': json.dumps('This is from response!')
     }
 ```
-# Setup and Usage
+# Setup and Usage ⚙️
 ### **AWS credentials for Boto3**
 To start you need to setup credentials for **AWS**. You can do this using **AWS Command Line**, in `~/.aws/credentials` file or via `export` command of environment variables. You can read more about this [here](https://boto3.amazonaws.com/v1/documentation/api/latest/guide/configuration.html).
 ### **Install requirements**
@@ -70,16 +71,18 @@ python3 main.py <log_group>
 ```
 
 
-# TODO
-* Set custom and default style
-* Support AWS CLI profilles
-* Save logs to file
-* Check for updates and only download the latest
-* As a PyPi package
-* Custom TAGs
-* Custom refresh time
-* Collapse all ENDs, STARTs and REPORTs
-* Better TreeView
-* Better StatusView
+# TODO 📝
+⭕ Set default style  
+⭕ Allow for custom style  
+⭕ Support AWS CLI profiles  
+⭕ Save logs to file  
+⭕ Check for updates and only download the latest  
+⭕ Create RichCloud a PyPi package  
+⭕ Custom log TAGs highlight  
+⭕ Custom refresh time  
+⭕ Collapse all ENDs, STARTs and REPORTs, ect.  
+⭕ Better TreeView  
+⭕ Better StatusView  
+⭕ Dry run (demo without AWS account)
 
 > ⚠️ The TUI version of RichWatch is base on **Textual** witch is in progress. If you see any bugs please let me know. Currently TUI is only working for *Linux* and *Macs* but on *Windows* you can run this in script version.
