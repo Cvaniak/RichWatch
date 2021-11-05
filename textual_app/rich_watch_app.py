@@ -54,7 +54,7 @@ class RichWatchApp(App):
 
     async def action_custom_quit(self):
         self.log_thread.end()
-        self.quit()
+        await self.shutdown()
 
     async def action_hide_bars(self):
         # self.view.toggle("tree_bar")

@@ -86,6 +86,5 @@ python3 main.py <log_group>
 ⭕ Better TreeView  
 ⭕ Better StatusView  
 ⭕ Dry run (demo without AWS account)
-⭕ Fix quit method  
 
 > ⚠️ The TUI version of RichWatch is base on **Textual** witch is in progress. If you see any bugs please let me know. Currently TUI is only working for *Linux* and *Macs* but on *Windows* you can run this in script version.
