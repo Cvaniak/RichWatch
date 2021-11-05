@@ -2,7 +2,9 @@
 <a href="https://github.com/Cvaniak/RichWatch"><img alt="" src="./documentation/RichWatchLogo.png" width="70%"></a>
 </p>  
 
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+<a href="https://www.python.org/"><img alt="Python" src="https://img.shields.io/badge/-python-black?logo=python&logoColor=brightgreen"></a>
+<a href="https://github.com/pfs/black"><img alt="Black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
+<a href="https://github.com/Cvaniak/RichWatch/blob/main/LICENSE"><img alt="GitHub" src="https://img.shields.io/github/license/Cvaniak/RichWatch?color=black"></a>
 
 **RichWatch** is **TUI** (Textual User Interface) for **AWS Cloud Watch**.  
 It formats and pretty prints **Cloud Watch**'s logs so they are much more readable.  
