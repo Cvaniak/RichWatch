@@ -1,22 +1,16 @@
 import threading
 from rich.align import Align
-from rich.text import Text
 from textual import events
 from textual.app import App
 from textual.reactive import Reactive
 from rich.panel import Panel
-from rich.pretty import Pretty
-from rich.status import Status
 from textual.widgets import (
     ScrollView,
     Footer,
     Header,
-    Placeholder,
     TreeClick,
     TreeControl,
 )
-from textual.widget import Widget
-from datetime import datetime, timedelta
 from textual_app.get_log_task import GetLogTask
 from textual_app.status_bar import StatusBar
 
@@ -26,12 +20,19 @@ async def get_lambdas(filename: str, tree: TreeControl) -> None:
         lines = fh.readlines()
         for line in lines:
             line = line.replace("\n", "")
-            line_name = line.split("/")[-1]
-            await tree.add(tree.root.id, line_name, {"group_name": line})
+            split_line = line.split(" ")
+            region = split_line[-1] if len(split_line) == 2 else None
+            full_name = split_line[0]
+            line_name = full_name.split("/")[-1]
+            await tree.add(
+                tree.root.id,
+                line_name,
+                {"group_name": full_name, "group_region": region},
+            )
     await tree.root.expand()
 
 
-class RichCloudApp(App):
+class RichWatchApp(App):
     main_body = Reactive(Panel(Align.center("Logs Content"), style="bold"))
     a = True
 
@@ -53,7 +54,7 @@ class RichCloudApp(App):
 
     async def action_custom_quit(self):
         self.log_thread.end()
-        self.quit()
+        await self.shutdown()
 
     async def action_hide_bars(self):
         # self.view.toggle("tree_bar")
@@ -96,8 +97,10 @@ class RichCloudApp(App):
         self.log_thread.start()
 
     async def handle_tree_click(self, message: TreeClick[dict]) -> None:
+        region = message.node.data.get("group_region", None)
         action = message.node.data.get("group_name", None)
         if action is not None and not self.thread_trigger.is_set():
+            self.log_thread.set_log_group_region(region)
             self.log_thread.set_log_group_name(action)
             self.status_view.reset_timer()
             self.thread_trigger.set()

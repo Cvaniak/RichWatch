@@ -1,11 +1,8 @@
-
-
 from textual.widget import Widget
 from datetime import datetime, timedelta
 import threading
 from rich.panel import Panel
 from rich.align import Align
-from rich.status import Status
 
 
 class StatusBar(Widget):
@@ -38,7 +35,10 @@ class StatusBar(Widget):
         #     return Panel(Align.center("[bold]Status Panel", vertical="middle"))
         # else:
         # .strftime("%c")
-        self.delta_time = datetime.now()-self.last_updated
-        text = (f"[bold]Auto Refresh: [{'green' if self.auto_refresh else 'red'}]{self.auto_refresh}[/]\n"
-                f"[bold]Last Update:  [cyan]{str(self.delta_time)[:-7]}")
+        self.delta_time = datetime.now() - self.last_updated
+        text = (
+            f"[bold]Auto Refresh: "
+            f"[{'green' if self.auto_refresh else 'red'}]{self.auto_refresh}[/]\n"
+            f"[bold]Last Update:  [cyan]{str(self.delta_time)[:-7]}"
+        )
         return Panel(Align.center(text, vertical="middle"))
