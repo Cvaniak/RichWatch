@@ -1,0 +1,36 @@
+{
+    "ResponseMetadata": {
+        "HTTPHeaders": {
+            "content-length": "1344",
+            "content-type": "application/x-amz-json-1.1",
+            "date": "Mon, 08 Nov 2021 16:24:28 GMT",
+            "x-amzn-requestid": "639ba257-391f-4777-9303-9bf63a7ebfd7"
+        },
+        "HTTPStatusCode": 200,
+        "RequestId": "639ba257-391f-4777-9303-9bf63a7ebfd7",
+        "RetryAttempts": 0
+    },
+    "logStreams": [
+        {
+            "arn": "arn:aws:logs:eu-west-1:661721920242:log-group:/aws/lambda/log-test:log-stream:2021/11/04/[$LATEST]8207313c327146aea1e3b99f0879fe67",
+            "creationTime": 1636057322360,
+            "firstEventTimestamp": 1636057320767,
+            "lastEventTimestamp": 1636057330772,
+            "lastIngestionTime": 1636057332368,
+            "logStreamName": "2021/11/04/[$LATEST]uniquecode5678",
+            "storedBytes": 0,
+            "uploadSequenceToken": "49610188214767438706156339506838696304711938836850017650"
+        },
+        {
+            "arn": "arn:aws:logs:eu-west-1:661721920242:log-group:/aws/lambda/log-test:log-stream:2021/11/04/[$LATEST]affc6ed37adb4390aecc7b3de3962fcc",
+            "creationTime": 1636057232940,
+            "firstEventTimestamp": 1636057232383,
+            "lastEventTimestamp": 1636057232387,
+            "lastIngestionTime": 1636057232947,
+            "logStreamName": "2021/11/04/[$LATEST]uniquecode1234",
+            "storedBytes": 0,
+            "uploadSequenceToken": "49616878538122832656505864010258612062282500021881406242"
+        }
+    ],
+    "nextToken": "Kwfr0bfVKkYk4OrYazFRibe2LFgJqHUJ0YB-9xP2eH6lxo0F9Nb61UVh7Hz4h5fUiO15Ms_uWIExMUJc-XUQmRMIjqmOYCR_OPGXy5GZ5DKyfYcHliMT3uqWNVhWJcd5lqUZHspUBDzI2mtOZUMtAsl7WavfiLZLuPpbbRbB_FDETny1zph4NPHHdnfUCThX5avaYQnoqBoGNfVdrb8gB1MRPqPh_K1IsxqTrHQXWoY1x7g7dHJ_zvA6ah_jTJbEZwEQs166XRzbj06uvt2jNY3VpgGNJ1V79guyuc0suW_9xfnvYA9VBN0dt85VAHPBJX7S9VEy3YwJjixF2APw9oKcbFtdZD1ol3knyBj9001P20OGSGGWk3gBapcxYKXjHOxC3fVQM3fbkJZh2aGGkzZrumoLy04ZPeDByv6bTkg"
+}

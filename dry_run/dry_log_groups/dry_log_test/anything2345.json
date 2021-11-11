@@ -1,0 +1,37 @@
+[
+    {
+        "ingestionTime": 1636057322368,
+        "message": "START RequestId: dede79ec-ecb9-4cc8-9955-49b4fc0a8728 Version: $LATEST\n",
+        "timestamp": 1636057320767
+    },
+    {
+        "ingestionTime": 1636057322368,
+        "message": "[INFO]\t2021-11-04T20:22:00.768Z\tdede79ec-ecb9-4cc8-9955-49b4fc0a8728\tOutput from logging.info()\n",
+        "timestamp": 1636057320768
+    },
+    {
+        "ingestionTime": 1636057322368,
+        "message": "[DEBUG]\t2021-11-04T20:22:00.768Z\tdede79ec-ecb9-4cc8-9955-49b4fc0a8728\tOutput from logging.debug()\n",
+        "timestamp": 1636057320769
+    },
+    {
+        "ingestionTime": 1636057322368,
+        "message": "[ERROR]\t2021-11-04T20:22:00.769Z\tdede79ec-ecb9-4cc8-9955-49b4fc0a8728\tOutput from logging.error()\n",
+        "timestamp": 1636057320769
+    },
+    {
+        "ingestionTime": 1636057322368,
+        "message": "Output from print()\n",
+        "timestamp": 1636057320769
+    },
+    {
+        "ingestionTime": 1636057322368,
+        "message": "END RequestId: dede79ec-ecb9-4cc8-9955-49b4fc0a8728\n",
+        "timestamp": 1636057320772
+    },
+    {
+        "ingestionTime": 1636057322368,
+        "message": "REPORT RequestId: dede79ec-ecb9-4cc8-9955-49b4fc0a8728\tDuration: 1.57 ms\tBilled Duration: 2 ms\tMemory Size: 128 MB\tMax Memory Used: 36 MB\tInit Duration: 103.45 ms\t\n",
+        "timestamp": 1636057320772
+    }
+]
