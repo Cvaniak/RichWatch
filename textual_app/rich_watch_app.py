@@ -33,6 +33,13 @@ async def get_lambdas(filename: str, tree: TreeControl) -> None:
 
 
 class RichWatchApp(App):
+    def __init__(
+        self, log_groups_file="log_groups.txt", thread_class=GetLogTask, **kwargs
+    ):
+        self.log_groups_file = log_groups_file
+        self.thread_class = thread_class
+        super(RichWatchApp, self).__init__(**kwargs)
+
     main_body = Reactive(Panel(Align.center("Logs Content"), style="bold"))
     a = True
 
@@ -74,7 +81,8 @@ class RichWatchApp(App):
 
     async def on_mount(self, event: events.Mount) -> None:
         self.thread_trigger = threading.Event()
-        self.log_thread = GetLogTask(self, self.thread_trigger)
+        # self.log_thread = GetLogTask(self, self.thread_trigger)
+        self.log_thread = self.thread_class(self, self.thread_trigger)
 
         # ----------- LAYOUT -----------
         await self.view.dock(Header(), edge="top")
@@ -92,7 +100,7 @@ class RichWatchApp(App):
         await self.view.dock(self.scrollview, name="mainbar")
 
         # --------- OTHER -----------
-        await get_lambdas("log_groups.txt", self.tree)
+        await get_lambdas(self.log_groups_file, self.tree)
 
         self.log_thread.start()
 

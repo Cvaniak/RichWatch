@@ -1,0 +1,22 @@
+[
+    {
+        "arn": "arn:aws:logs:eu-west-1:661721920242:log-group:/aws/lambda/log-test:log-stream:2021/11/04/[$LATEST]8207313c327146aea1e3b99f0879fe67",
+        "creationTime": 1636057322360,
+        "firstEventTimestamp": 1636057320767,
+        "lastEventTimestamp": 1636057320772,
+        "lastIngestionTime": 1636057322368,
+        "logStreamName": "2021/11/04/[$LATEST]anything2345",
+        "storedBytes": 0,
+        "uploadSequenceToken": "49610188214767438706156339506838696304711938836850017650"
+    },
+    {
+        "arn": "arn:aws:logs:eu-west-1:661721920242:log-group:/aws/lambda/log-test:log-stream:2021/11/04/[$LATEST]affc6ed37adb4390aecc7b3de3962fcc",
+        "creationTime": 1636057232940,
+        "firstEventTimestamp": 1636057232383,
+        "lastEventTimestamp": 1636057232387,
+        "lastIngestionTime": 1636057232947,
+        "logStreamName": "2021/11/04/[$LATEST]anything1234",
+        "storedBytes": 0,
+        "uploadSequenceToken": "49616878538122832656505864010258612062282500021881406242"
+    }
+]

@@ -8,9 +8,10 @@
 
 **RichWatch** is **TUI** (Textual User Interface) for **AWS Cloud Watch**.  
 It formats and pretty prints **Cloud Watch**'s logs so they are much more readable.  
-Because it works in terminal, you can have updates from your **Lambdas** and other **AWS** services next to your hand, automatically refreshed and represented in beautiful way by excelent **Python** library [**Rich**]("www.costam.com") and [**Textual**]("www.costam.com"),
+Because it works in terminal, you can have updates from your **Lambdas** and other **AWS** services next to your hand, automatically refreshed and represented in beautiful way by excelent **Python** library [**Rich**]("https://github.com/willmcgugan/rich") and [**Textual**]("https://github.com/willmcgugan/textual"),
 
 ## **Content**
+- [Dry run 🔍](#dry-run-)
 - [What is the difference❓](#what-is-the-difference)
 - [Setup and Usage ⚙️](#setup-and-usage-️)
     - [**AWS credentials for Boto3**](#aws-credentials-for-boto3)
@@ -18,6 +19,13 @@ Because it works in terminal, you can have updates from your **Lambdas** and oth
     - [**Setup Log Group file**](#setup-log-group-file)
     - [**Run App**](#run-app)
 - [TODO 📝](#todo-)
+
+# Dry run 🔍
+Now you can try it without **AWS** account! If you wonder how UI looks like or how you can use it or you just looking for example of app created with **Textual**, now you can [**Install requirements**](#install-requirements) and run app with:
+```bash
+python3 rich_watch.py dry-run
+```
+and it will show you flow with example offline data.
 
 # What is the difference❓
 So this is example Log output from **AWS Cloud Watch**:  
@@ -74,17 +82,19 @@ python3 main.py <log_group>
 
 
 # TODO 📝
+☑️ Check for updates and only download the latest  
+☑️ Save logs to file  
+☑️ Dry run (demo without AWS account)  
+⭕ Add more examples for dry-run  
+⭕ Configure how many logs should be downloaded  
+⭕ Better TreeView (with custom names)  
 ⭕ Set default style  
 ⭕ Allow for custom style  
 ⭕ Support AWS CLI profiles  
-⭕ Save logs to file  
-⭕ Check for updates and only download the latest  
 ⭕ Create RichCloud a PyPi package  
 ⭕ Custom log TAGs highlight  
 ⭕ Custom refresh time  
 ⭕ Collapse all ENDs, STARTs and REPORTs, ect.  
-⭕ Better TreeView  
 ⭕ Better StatusView  
-⭕ Dry run (demo without AWS account)
 
 > ⚠️ The TUI version of RichWatch is base on **Textual** witch is in progress. If you see any bugs please let me know. Currently TUI is only working for *Linux* and *Macs* but on *Windows* you can run this in script version.

@@ -1,8 +1,1 @@
-/aws/lambda/log-test eu-west-1
-lambda/b
-lambda/c
-lambda/d
-lambda/e
-lambda/f
-lambda/f
-lambda/h
+/aws/lambda/paste-here-yours region-name

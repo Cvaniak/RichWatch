@@ -5,7 +5,6 @@ import sys
 
 
 if __name__ == "__main__":
-    log_name = "/aws/lambda/data-upload-lambda-receive-sqs-infra"
 
     region = dict()
     if len(sys.argv) == 3:
@@ -14,4 +13,4 @@ if __name__ == "__main__":
     session = boto3.session.Session(**region)
     client = session.client("logs")
     console = Console()
-    console.print(create_log_table(client, log_name))
+    console.print(create_log_table(client, sys.argv[1]))
