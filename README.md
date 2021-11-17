@@ -96,9 +96,9 @@ python3 main.py <log_group>
 ☑️ Check for updates and only download the latest  
 ☑️ Save logs to file  
 ☑️ Dry run (demo without AWS account)  
-⭕ Add more examples for dry-run  
+☑️ Add more examples for dry-run  
+☑️ Better TreeView (with custom names)  
 ⭕ Configure how many logs should be downloaded  
-⭕ Better TreeView (with custom names)  
 ⭕ Set default style  
 ⭕ Allow for custom style  
 ⭕ Support AWS CLI profiles  
