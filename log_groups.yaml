@@ -1,0 +1,13 @@
+region: eu-west-0
+project-a:
+  - path: /aws/lambda/test-lambda-0
+    custom-name: my-lambda-0
+    region: us-east-2
+  - path: /aws/lambda/test-lambda-1
+    custom-name: my-lambda-1
+    region: eu-west-1
+project-b:
+  - path: /aws/lambda/test-lambda-2
+    region: eu-west-2
+  - path: /aws/lambda/test-lambda-3
+    custom-name: my-lambda3

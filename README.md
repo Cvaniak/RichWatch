@@ -62,14 +62,25 @@ Then you need to install requirements:
 pip3 install -r requirements.txt
 ```
 ### **Setup Log Group file**
-Then you need to create `log_group.txt` file like this:
-```txt
-/aws/lambda/lambda-name-1 region-name-1
-/aws/lambda/lambda-name-2 
-...
-/aws/lambda/lambda-name-n region-name-n
+Then you need to create `log_group.yaml` file like this:
+```yaml
+region: eu-west-0
+project-a:
+  - path: /aws/lambda/test-lambda-0
+    custom-name: my-lambda-0
+    region: eu-west-0
+  - path: /aws/lambda/test-lambda-1
+    custom-name: my-lambda-1
+    region: eu-west-1
+  - path: /aws/lambda/test-lambda-2
+    region: eu-west-2
+  - path: /aws/lambda/test-lambda-3
+    custom-name: my-lambda3
 ```
-Where first word is name o log group, and second optional region(if empty then the default will be taken, if also empty then error will occur). It will display only last part after `/`.
+First region is optional default region. Then you can provide any name ex. `project-a`. It does not change anything for now later it will be used to group lambdas in tree view. Then you can provide list of lambdas where:
+ * `path` is obligatory and it is path to log group,
+ *  `custom-name` is optional and this is place where you can name your lambda (otherwise it will display last part after `/`),
+ *  `region` witch will overwrite default `region`. If both `region` values are not set, then value from your `AWS` client setup will be used.
 ### **Run App**
 Then you can run app:
 ```bash
@@ -85,9 +96,9 @@ python3 main.py <log_group>
 ☑️ Check for updates and only download the latest  
 ☑️ Save logs to file  
 ☑️ Dry run (demo without AWS account)  
-⭕ Add more examples for dry-run  
+☑️ Add more examples for dry-run  
+☑️ Better TreeView (with custom names)  
 ⭕ Configure how many logs should be downloaded  
-⭕ Better TreeView (with custom names)  
 ⭕ Set default style  
 ⭕ Allow for custom style  
 ⭕ Support AWS CLI profiles  

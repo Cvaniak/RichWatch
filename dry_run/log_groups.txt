@@ -1,1 +1,0 @@
-aws/lambda/dry_log_test

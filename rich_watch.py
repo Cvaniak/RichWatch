@@ -9,7 +9,7 @@ if __name__ == "__main__":
         RichWatchApp.run(
             title="RichWatch TUI dry-run",
             thread_class=GetLogTaskTest,
-            log_groups_file="dry_run/log_groups.txt",
+            log_groups_file="dry_run/log_groups.yaml",
         )
     else:
         RichWatchApp.run(title="RichWatch TUI")

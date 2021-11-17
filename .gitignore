@@ -4,3 +4,4 @@ venv
 err.txt
 textual.log
 log_groups.txt
+test.py

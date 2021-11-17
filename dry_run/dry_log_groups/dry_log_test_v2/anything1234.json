@@ -1,0 +1,27 @@
+[
+    {
+        "ingestionTime": 1636057232947,
+        "message": "START RequestId: 4df2d463-8aa3-4168-85c8-a80001aaff00 Version: $LATEST\n",
+        "timestamp": 1636057232383
+    },
+    {
+        "ingestionTime": 1636057232947,
+        "message": "[ERROR]\t2021-11-04T20:20:32.384Z\t4df2d463-8aa3-4168-85c8-a80001aaff00\tOutput from logging.error()\n",
+        "timestamp": 1636057232384
+    },
+    {
+        "ingestionTime": 1636057232947,
+        "message": "Output from print()\n",
+        "timestamp": 1636057232384
+    },
+    {
+        "ingestionTime": 1636057232947,
+        "message": "END RequestId: 4df2d463-8aa3-4168-85c8-a80001aaff00\n",
+        "timestamp": 1636057232387
+    },
+    {
+        "ingestionTime": 1636057232947,
+        "message": "REPORT RequestId: 4df2d463-8aa3-4168-85c8-a80001aaff00\tDuration: 1.47 ms\tBilled Duration: 2 ms\tMemory Size: 128 MB\tMax Memory Used: 36 MB\tInit Duration: 105.36 ms\t\n",
+        "timestamp": 1636057232387
+    }
+]

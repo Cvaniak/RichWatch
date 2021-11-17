@@ -1,6 +1,6 @@
 import threading
 from threading import Event
-import boto3
+from boto3.session import Session
 from other_tools.other import get_log_table, create_log_table
 import os
 
@@ -25,7 +25,7 @@ class GetLogTask(threading.Thread):
                 if self.log_group_region is not None:
                     optionals["region_name"] = self.log_group_region
 
-                session = boto3.session.Session(**optionals)
+                session = Session(**optionals)
                 client = session.client("logs")
                 tmp_table = get_log_table(client, self.log_group_name, self.has_table)
                 if tmp_table:
@@ -33,17 +33,17 @@ class GetLogTask(threading.Thread):
                     self.widget.main_body = tmp_table
                     self.trigger.clear()
 
-    def set_log_group_name(self, group_name: str):
+    def set_log_group_name(self, group_name: str) -> None:
         self.log_group_name = group_name
 
-    def set_log_group_region(self, region: str):
+    def set_log_group_region(self, region: str) -> None:
         self.log_group_region = region
 
-    def end(self):
+    def end(self) -> None:
         self.should_run = False
 
 
-def generate_test_dir(log_group_name):
+def generate_test_dir() -> str:
     directory = os.path.abspath(os.getcwd())
     return os.path.join(directory, "dry_run/dry_log_groups")
 
@@ -57,7 +57,7 @@ class GetLogTaskTest(GetLogTask):
                     continue
 
                 self.log_group_name = self.log_group_name.split("/")[-1]
-                dir = generate_test_dir(self.log_group_name)
+                dir = generate_test_dir()
                 dir = os.path.join(dir, self.log_group_name)
                 tmp_table = create_log_table(self.log_group_name, dir)
                 if tmp_table:

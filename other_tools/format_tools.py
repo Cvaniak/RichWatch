@@ -4,7 +4,7 @@ from config import type_dict, style_dict, OTHER_TYPE
 from rich.text import Text
 
 
-def format_date(date: datetime.timestamp) -> str:
+def format_date(date: float) -> str:
     d = datetime.fromtimestamp(date / 1000.0)
     time = d.strftime("%m/%d/%Y\n%H:%M:%S.%f")[:-3]
     return time
