@@ -1,8 +1,7 @@
-from typing import Dict, List
+from typing import Dict, List, Tuple, Union
 from rich import box
 from other_tools.format_tools import format_event
 from rich.table import Table
-from boto3 import client
 import json
 import os
 
@@ -23,7 +22,10 @@ def create_directory(log_group_name: str) -> str:
     return log_group_dir
 
 
-def check_for_new_event(list_log_streams: List[Dict], stream_file_dir: str) -> bool:
+def check_for_new_event(
+    list_log_streams: List[Dict], stream_file_dir: str
+) -> Tuple[bool, Union[int, None]]:
+
     if not os.path.exists(stream_file_dir):
         return True, None
 
@@ -56,11 +58,11 @@ def save_stream_to_file(list_log_streams, log_group_dir):
 
 
 def download_log_group(
-    client: client,
+    client,
     log_group_name: str,
     list_log_streams: List[Dict],
     from_timestamp: int = None,
-):
+) -> Dict:
 
     optional = dict()
     if from_timestamp is not None:
@@ -80,7 +82,7 @@ def download_log_group(
     return result
 
 
-def save_log_group_to_file(list_of_events, log_group_dir):
+def save_log_group_to_file(list_of_events: Dict, log_group_dir: str) -> None:
     for event_list_name in list_of_events:
         log_stream_dir = os.path.join(log_group_dir, f"{event_list_name}.json")
         with open(log_stream_dir, "w") as log_file:
@@ -89,13 +91,13 @@ def save_log_group_to_file(list_of_events, log_group_dir):
             )
 
 
-def create_table(log_group_name):
+def create_table(log_group_name: str) -> Table:
     title = log_group_name.upper().split("/")[-1]
     table = Table(
         title=title,
         box=box.MINIMAL,
         show_lines=True,
-        highlight=None,
+        highlight=False,
         title_style="bold",
     )
     table.add_column("Time")
@@ -104,7 +106,7 @@ def create_table(log_group_name):
     return table
 
 
-def create_log_table(log_group_name, log_group_dir):
+def create_log_table(log_group_name: str, log_group_dir: str) -> Table:
     with open(os.path.join(log_group_dir, STREAM_FILE), "r") as f:
         stream_file = json.load(f)
     table = create_table(log_group_name)
@@ -117,7 +119,9 @@ def create_log_table(log_group_name, log_group_dir):
     return table
 
 
-def get_log_table(client, log_group_name, has_table=False):
+def get_log_table(
+    client, log_group_name: str, has_table: str = None
+) -> Union[Table, None]:
     log_group_dir = create_directory(log_group_name)
 
     list_log_streams = download_new_log_stream(client, log_group_name)

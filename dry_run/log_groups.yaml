@@ -1,0 +1,8 @@
+project-a:
+  - path: /aws/lambda/dry_log_test
+    custom-name: my-lambda-0
+    region: eu-west-0
+dry-test-b:
+  - path: /aws/lambda/dry_log_test_v2
+    custom-name: another-lambda-0
+    region: eu-west-0

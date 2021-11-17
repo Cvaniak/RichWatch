@@ -6,35 +6,31 @@ from rich.align import Align
 
 
 class StatusBar(Widget):
-    last_updated = datetime.now()
-    auto_refresh = False
-    delta_time = timedelta(seconds=0)
+    delta_time: timedelta = timedelta(seconds=0)
+    last_updated: datetime = datetime.now()
+    auto_refresh: bool = False
 
-    def __init__(self, trigger: threading.Event):
+    def __init__(self, trigger: threading.Event) -> None:
         self.trigger = trigger
         super(StatusBar, self).__init__()
 
-    def update_refresh(self):
+    def update_refresh(self) -> None:
         if self.auto_refresh and self.delta_time.total_seconds() > 10:
             self.trigger.set()
             self.reset_timer()
         self.refresh()
 
-    def reset_timer(self):
+    def reset_timer(self) -> None:
         self.last_updated = datetime.now()
         self.delta_time = timedelta(seconds=0)
 
-    def on_mount(self):
+    def on_mount(self) -> None:
         self.set_interval(0.2, self.update_refresh)
 
-    def toggle_auto_refresh(self):
+    def toggle_auto_refresh(self) -> None:
         self.auto_refresh = not self.auto_refresh
 
-    def render(self):
-        # if self.last_updated is None:
-        #     return Panel(Align.center("[bold]Status Panel", vertical="middle"))
-        # else:
-        # .strftime("%c")
+    def render(self) -> Panel:
         self.delta_time = datetime.now() - self.last_updated
         text = (
             f"[bold]Auto Refresh: "

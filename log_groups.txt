@@ -1,1 +1,0 @@
-/aws/lambda/paste-here-yours region-name
